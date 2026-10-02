@@ -3,351 +3,155 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f3f4ee">
-  <title>Iniciar sesión | Portal Cliente</title>
+  <meta name="theme-color" content="#f4f0e8">
+  <title>Aural One — Ficha de producto</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
-    :root {
-      color-scheme: light;
-      --ink: #202a29;
-      --muted: #687472;
-      --green: #176a52;
-      --green-dark: #10513f;
-      --line: #d9dfd8;
-      --paper: #fffefa;
-      --canvas: #f3f4ee;
-      --coral: #dc795e;
-    }
-
+    :root { --ink:#17211f; --muted:#697572; --paper:#fffdfa; --canvas:#f2eee6; --line:#dedbd3; --accent:#df5d3d; --dark:#153f36; }
     * { box-sizing: border-box; }
+    body { margin:0; min-width:320px; min-height:100vh; background:var(--canvas); color:var(--ink); font-family:"DM Sans",sans-serif; }
+    button, a { font:inherit; }
+    button:focus-visible, a:focus-visible { outline:3px solid rgba(223,93,61,.35); outline-offset:3px; }
+    .shell { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:24px 0; }
+    .brand { color:var(--ink); font:800 19px Manrope,sans-serif; letter-spacing:-.4px; text-decoration:none; }
+    .brand i { display:inline-block; width:10px; height:10px; margin-right:8px; border-radius:50%; background:var(--accent); }
+    .back { color:var(--muted); font-size:14px; font-weight:600; text-decoration:none; }
+    .back:hover { color:var(--ink); }
 
-    body {
-      min-width: 320px;
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      grid-template-columns: minmax(320px, 0.92fr) minmax(440px, 1.08fr);
-      background: var(--canvas);
-      color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
-    }
+    .product { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr); overflow:hidden; border:1px solid var(--line); border-radius:24px; background:var(--paper); box-shadow:0 20px 60px rgba(39,46,42,.08); }
+    .hero { position:relative; display:grid; min-height:520px; place-items:center; overflow:hidden; background:#dce7de; }
+    .hero::before { position:absolute; width:440px; height:440px; border:1px solid rgba(21,63,54,.12); border-radius:50%; box-shadow:0 0 0 55px rgba(255,255,255,.18),0 0 0 110px rgba(21,63,54,.035); content:""; }
+    .badge { position:absolute; top:28px; left:28px; z-index:2; padding:8px 12px; border-radius:999px; background:var(--paper); color:var(--dark); font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+    .headphones { position:relative; z-index:1; width:min(75%,410px); filter:drop-shadow(0 28px 24px rgba(26,54,47,.22)); transform:rotate(-5deg); }
+    .summary { display:flex; flex-direction:column; justify-content:center; padding:56px; }
+    .overline { margin:0 0 14px; color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+    h1 { margin:0; font:700 clamp(38px,5vw,64px)/1 Manrope,sans-serif; letter-spacing:-2.4px; }
+    .lead { max-width:430px; margin:22px 0; color:var(--muted); font-size:16px; line-height:1.7; }
+    .price { margin:4px 0 26px; font:700 27px Manrope,sans-serif; }
+    .price small { color:var(--muted); font:400 12px "DM Sans",sans-serif; }
+    .actions { display:flex; gap:12px; }
+    .primary,.secondary { min-height:48px; padding:0 22px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .primary { border:1px solid var(--dark); background:var(--dark); color:white; }
+    .primary:hover { background:#0e302a; }
+    .secondary { border:1px solid var(--line); background:transparent; color:var(--ink); }
 
-    .visual {
-      position: relative;
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      padding: 42px 48px 36px;
-      background: #dce8dd;
-    }
-
-    .visual::before,
-    .visual::after {
-      position: absolute;
-      content: '';
-      pointer-events: none;
-    }
-
-    .visual::before {
-      inset: 0;
-      background: linear-gradient(155deg, rgba(243, 244, 238, .1), rgba(31, 90, 68, .12));
-    }
-
-    .visual::after {
-      width: 430px;
-      height: 430px;
-      right: -175px;
-      bottom: -190px;
-      border: 1px solid rgba(23, 106, 82, .2);
-      border-radius: 50%;
-      box-shadow: 0 0 0 42px rgba(23, 106, 82, .045), 0 0 0 84px rgba(23, 106, 82, .035);
-    }
-
-    .brand, .visual-copy, .visual-footer { position: relative; z-index: 1; }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      width: fit-content;
-      color: var(--ink);
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0;
-      text-decoration: none;
-    }
-
-    .brand-mark {
-      display: grid;
-      width: 38px;
-      height: 38px;
-      place-items: center;
-      border-radius: 11px;
-      background: var(--green);
-      color: white;
-    }
-
-    .brand-mark svg { width: 22px; height: 22px; }
-
-    .visual-copy { max-width: 510px; margin: 0 auto; }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 19px;
-      color: var(--green-dark);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      width: 22px;
-      height: 2px;
-      background: var(--coral);
-      content: '';
-    }
-
-    h1 {
-      max-width: 480px;
-      margin: 0;
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(38px, 4vw, 58px);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: 0;
-    }
-
-    .visual-copy p {
-      max-width: 395px;
-      margin: 20px 0 0;
-      color: #4f6259;
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    .visual-footer { color: #52645b; font-size: 12px; }
-
-    .form-side {
-      display: grid;
-      min-height: 100vh;
-      place-items: center;
-      padding: 48px 32px;
-      background:
-        radial-gradient(ellipse at 80% 5%, rgba(220, 121, 94, .08), transparent 31%),
-        var(--paper);
-    }
-
-    .login { width: min(100%, 410px); animation: arrive .55s ease-out both; }
-
-    .mobile-brand { display: none; }
-
-    .form-heading { margin-bottom: 34px; }
-
-    .form-heading h2 {
-      margin: 0 0 9px;
-      font-family: 'Manrope', sans-serif;
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
-    .form-heading p { margin: 0; color: var(--muted); font-size: 14px; }
-
-    .field { margin-bottom: 20px; }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    input[type="email"], input[type="password"] {
-      width: 100%;
-      height: 49px;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: 5px;
-      outline: none;
-      background: #fff;
-      color: var(--ink);
-      font: inherit;
-      font-size: 14px;
-      transition: border-color .18s, box-shadow .18s;
-    }
-
-    input::placeholder { color: #98a19c; }
-
-    input:focus-visible {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(23, 106, 82, .13);
-    }
-
-    .form-options {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 2px 0 24px;
-      font-size: 13px;
-    }
-
-    .remember { display: inline-flex; align-items: center; gap: 8px; color: #4f5c58; }
-
-    .remember input { width: 15px; height: 15px; margin: 0; accent-color: var(--green); }
-
-    a { color: var(--green-dark); font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-    a:hover { color: var(--green); }
-
-    .submit {
-      display: flex;
-      width: 100%;
-      height: 49px;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 0;
-      border-radius: 5px;
-      background: var(--green);
-      color: #fff;
-      cursor: pointer;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 700;
-      transition: background .18s, transform .18s;
-    }
-
-    .submit:hover { background: var(--green-dark); }
-    .submit:active { transform: translateY(1px); }
-    .submit:focus-visible, a:focus-visible { outline: 3px solid rgba(23, 106, 82, .35); outline-offset: 3px; }
-    .submit svg { width: 17px; height: 17px; }
-
-    .notice {
-      min-height: 20px;
-      margin: 14px 0 0;
-      color: #a34e3b;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .divider { height: 1px; margin: 28px 0 23px; background: #e8ebe5; }
-
-    .help { margin: 0; color: var(--muted); font-size: 13px; text-align: center; }
-
-    .security-note {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      margin-top: 36px;
-      color: #78837e;
-      font-size: 11px;
-    }
-
-    .security-note svg { width: 15px; height: 15px; color: var(--green); }
-
-    @keyframes arrive {
-      from { opacity: 0; transform: translateY(9px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 760px) {
-      body { display: block; }
-      .visual { display: none; }
-      .form-side { min-height: 100svh; padding: 34px 24px; }
-      .login { max-width: 420px; }
-      .mobile-brand { display: inline-flex; margin-bottom: 43px; }
-      .form-heading { margin-bottom: 29px; }
-      .security-note { margin-top: 29px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-    }
+    .details { margin:28px 0 70px; overflow:hidden; border:1px solid var(--line); border-radius:18px; background:var(--paper); }
+    .tabs { display:flex; gap:2px; overflow-x:auto; padding:9px; border-bottom:1px solid var(--line); }
+    .tab { flex:1; min-width:130px; padding:13px 16px; border:0; border-radius:9px; background:transparent; color:var(--muted); cursor:pointer; font-size:14px; font-weight:700; white-space:nowrap; }
+    .tab:hover { color:var(--ink); background:#f5f2ec; }
+    .tab[aria-selected="true"] { background:var(--dark); color:white; }
+    .panel { display:none; min-height:270px; padding:36px 40px 42px; animation:appear .25s ease-out; }
+    .panel.active { display:block; }
+    .panel h2 { margin:0 0 22px; font:700 25px Manrope,sans-serif; }
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px 64px; }
+    .info-grid h3 { margin:0 0 7px; font-size:14px; }
+    .info-grid p { margin:0; color:var(--muted); font-size:14px; line-height:1.6; }
+    .video-box { position:relative; display:grid; min-height:280px; place-items:center; overflow:hidden; border-radius:13px; background:linear-gradient(135deg,#163d35,#081d19); color:white; text-align:center; }
+    .video-box svg { width:52px; height:52px; margin-bottom:10px; }
+    .video-box p { margin:0; color:#b8cac5; font-size:13px; }
+    .gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .shot { display:grid; min-height:190px; place-items:center; border-radius:12px; background:#edf0e9; }
+    .shot:nth-child(2) { background:#ece1d8; } .shot:nth-child(3) { background:#dce7e4; }
+    .shot svg { width:72%; max-height:155px; }
+    .downloads { display:grid; gap:10px; }
+    .file { display:flex; align-items:center; gap:14px; padding:15px 17px; border:1px solid var(--line); border-radius:10px; color:var(--ink); text-decoration:none; }
+    .file:hover { border-color:#aeb8b2; background:#faf8f3; }
+    .file-icon { display:grid; width:38px; height:38px; place-items:center; border-radius:8px; background:#f2e1dc; color:var(--accent); font-size:11px; font-weight:800; }
+    .file strong { display:block; font-size:14px; } .file small { color:var(--muted); }
+    .arrow { margin-left:auto; color:var(--muted); font-size:20px; }
+    @keyframes appear { from { opacity:0; transform:translateY(4px); } }
+    @media(max-width:800px){ .product{grid-template-columns:1fr}.hero{min-height:390px}.summary{padding:38px}.info-grid{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.panel{padding:28px 24px}.tabs{justify-content:flex-start}.tab{flex:0 0 auto} }
+    @media(max-width:480px){ .shell{width:min(100% - 24px,1160px)}header{padding:18px 0}.hero{min-height:320px}.summary{padding:30px 24px}h1{font-size:40px}.actions{flex-direction:column}.product{border-radius:16px}.details{margin-top:18px}.back span{display:none} }
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
-  <aside class="visual" aria-label="Portal Cliente">
-    <a class="brand" href="#inicio" aria-label="Portal Cliente, inicio">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 18.5V7.8c0-.5.3-.9.8-1.1l5.6-2.2c.4-.2.8-.2 1.2 0l5.6 2.2c.5.2.8.6.8 1.1v10.7M8 18.5v-5h8v5M9 9.2h.01M15 9.2h.01M12 9.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      Portal Cliente
-    </a>
+  <header class="shell">
+    <a class="brand" href="#"><i></i>NÓRDICA</a>
+    <a class="back" href="#">← <span>Volver al catálogo</span></a>
+  </header>
 
-    <div class="visual-copy">
-      <div class="eyebrow">Tu espacio de trabajo</div>
-      <h1>Todo tu negocio, en un solo lugar.</h1>
-      <p>Accede a tus pedidos, facturas y datos de cuenta desde un portal sencillo y seguro.</p>
-    </div>
-
-    <div class="visual-footer">© 2026 Portal Cliente</div>
-  </aside>
-
-  <main class="form-side" id="inicio">
-    <section class="login" aria-labelledby="login-title">
-      <a class="brand mobile-brand" href="#inicio" aria-label="Portal Cliente, inicio">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 18.5V7.8c0-.5.3-.9.8-1.1l5.6-2.2c.4-.2.8-.2 1.2 0l5.6 2.2c.5.2.8.6.8 1.1v10.7M8 18.5v-5h8v5M9 9.2h.01M15 9.2h.01M12 9.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        Portal Cliente
-      </a>
-
-      <header class="form-heading">
-        <h2 id="login-title">Iniciar sesión</h2>
-        <p>Ingresa tus datos para acceder a tu cuenta.</p>
-      </header>
-
-      <form id="login-form">
-        <div class="field">
-          <label for="email">Correo electrónico</label>
-          <input id="email" name="email" type="email" autocomplete="username" placeholder="nombre@empresa.com" required>
+  <main class="shell">
+    <section class="product" aria-labelledby="product-title">
+      <div class="hero">
+        <span class="badge">Nuevo · 2026</span>
+        <svg class="headphones" viewBox="0 0 420 390" role="img" aria-label="Auriculares Aural One en color verde">
+          <path d="M84 207v-26C84 91 138 41 210 41s126 50 126 140v26" fill="none" stroke="#183f36" stroke-width="30" stroke-linecap="round"/>
+          <path d="M92 170c-27 3-48 27-48 57v56c0 32 23 58 52 58h28V168l-32 2Z" fill="#e25f3e"/><rect x="89" y="159" width="57" height="193" rx="27" fill="#16463b"/><path d="M328 170c27 3 48 27 48 57v56c0 32-23 58-52 58h-28V168l32 2Z" fill="#e25f3e"/><rect x="274" y="159" width="57" height="193" rx="27" fill="#16463b"/><path d="M99 193v122M321 193v122" stroke="#52776d" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="summary">
+        <p class="overline">Sonido personal</p>
+        <h1 id="product-title">Aural One</h1>
+        <p class="lead">Auriculares inalámbricos de alta fidelidad, creados para escuchar cada detalle con total comodidad.</p>
+        <p class="price">$189.990 <small>IVA incluido</small></p>
+        <div class="actions">
+          <button class="primary" type="button" id="buy">Añadir al carrito</button>
+          <button class="secondary" type="button" id="save">Guardar</button>
         </div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label for="password">Contraseña</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Ingresa tu contraseña" required>
+    <section class="details" aria-label="Detalles del producto">
+      <div class="tabs" role="tablist" aria-label="Contenido del producto">
+        <button class="tab" role="tab" id="tab-info" aria-controls="info" aria-selected="true">Información</button>
+        <button class="tab" role="tab" id="tab-video" aria-controls="video" aria-selected="false" tabindex="-1">Video</button>
+        <button class="tab" role="tab" id="tab-images" aria-controls="images" aria-selected="false" tabindex="-1">Imágenes</button>
+        <button class="tab" role="tab" id="tab-downloads" aria-controls="downloads" aria-selected="false" tabindex="-1">Descargas</button>
+      </div>
+
+      <div class="panel active" id="info" role="tabpanel" aria-labelledby="tab-info">
+        <h2>Diseñados para sonar mejor</h2>
+        <div class="info-grid">
+          <div><h3>Audio envolvente</h3><p>Drivers de 40 mm calibrados para entregar bajos profundos, voces naturales y agudos definidos.</p></div>
+          <div><h3>Hasta 40 horas</h3><p>Batería para varios días y carga rápida: 10 minutos equivalen a 4 horas de reproducción.</p></div>
+          <div><h3>Cancelación adaptativa</h3><p>Analiza tu entorno y regula automáticamente el nivel de aislamiento que necesitas.</p></div>
+          <div><h3>Comodidad ligera</h3><p>Almohadillas de espuma viscoelástica y una diadema flexible de solo 265 gramos.</p></div>
         </div>
-
-        <div class="form-options">
-          <label class="remember" for="remember">
-            <input id="remember" name="remember" type="checkbox">
-            Recordarme
-          </label>
-          <a href="mailto:soporte@empresa.com?subject=Recuperar%20contrase%C3%B1a">¿Olvidaste tu contraseña?</a>
+      </div>
+      <div class="panel" id="video" role="tabpanel" aria-labelledby="tab-video" hidden>
+        <h2>Conoce Aural One</h2>
+        <div class="video-box"><div><svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="2"/><path d="m27 21 17 11-17 11V21Z" fill="currentColor"/></svg><strong>Video de producto</strong><p>Vista previa demostrativa · 01:24</p></div></div>
+      </div>
+      <div class="panel" id="images" role="tabpanel" aria-labelledby="tab-images" hidden>
+        <h2>Todos los ángulos</h2>
+        <div class="gallery">
+          <div class="shot"><svg viewBox="0 0 180 140"><path d="M45 80V64c0-45 90-45 90 0v16" fill="none" stroke="#16463b" stroke-width="13" stroke-linecap="round"/><rect x="34" y="70" width="29" height="61" rx="14" fill="#df5d3d"/><rect x="117" y="70" width="29" height="61" rx="14" fill="#16463b"/></svg></div>
+          <div class="shot"><svg viewBox="0 0 180 140"><path d="M49 77V62c0-43 82-43 82 0v15" fill="none" stroke="#17211f" stroke-width="12" stroke-linecap="round"/><rect x="41" y="66" width="26" height="64" rx="13" fill="#17211f"/><rect x="113" y="66" width="26" height="64" rx="13" fill="#17211f"/></svg></div>
+          <div class="shot"><svg viewBox="0 0 180 140"><g transform="rotate(-25 90 70)"><rect x="35" y="53" width="110" height="25" rx="12" fill="#16463b"/><rect x="25" y="66" width="35" height="64" rx="17" fill="#df5d3d"/><rect x="120" y="66" width="35" height="64" rx="17" fill="#16463b"/></g></svg></div>
         </div>
-
-        <button class="submit" type="submit">
-          Iniciar sesión
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <p class="notice" id="form-notice" role="status" aria-live="polite"></p>
-      </form>
-
-      <div class="divider" aria-hidden="true"></div>
-      <p class="help">¿Necesitas ayuda? <a href="mailto:soporte@empresa.com">Contacta con soporte</a></p>
-      <div class="security-note">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 3 5 6v5c0 4.6 2.9 8.1 7 10 4.1-1.9 7-5.4 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Tus datos se transmiten de forma segura
+      </div>
+      <div class="panel" id="downloads" role="tabpanel" aria-labelledby="tab-downloads" hidden>
+        <h2>Documentación</h2>
+        <div class="downloads">
+          <a class="file" href="data:text/plain;charset=utf-8,Manual%20de%20usuario%20Aural%20One" download="manual-aural-one.txt"><span class="file-icon">PDF</span><span><strong>Manual de usuario</strong><small>Español · 2,4 MB</small></span><span class="arrow">↓</span></a>
+          <a class="file" href="data:text/plain;charset=utf-8,Ficha%20tecnica%20Aural%20One" download="ficha-tecnica-aural-one.txt"><span class="file-icon">PDF</span><span><strong>Ficha técnica</strong><small>Especificaciones · 860 KB</small></span><span class="arrow">↓</span></a>
+          <a class="file" href="data:text/plain;charset=utf-8,Guia%20rapida%20Aural%20One" download="guia-rapida-aural-one.txt"><span class="file-icon">PDF</span><span><strong>Guía de inicio rápido</strong><small>Español · 1,1 MB</small></span><span class="arrow">↓</span></a>
+        </div>
       </div>
     </section>
   </main>
 
   <script>
-    const loginForm = document.querySelector('#login-form');
-    const formNotice = document.querySelector('#form-notice');
-
-    loginForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      formNotice.textContent = 'El formulario está listo, pero falta conectarlo al servicio de autenticación.';
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+    function selectTab(tab) {
+      tabs.forEach(item => { const active = item === tab; item.setAttribute('aria-selected', active); item.tabIndex = active ? 0 : -1; });
+      panels.forEach(panel => { const active = panel.id === tab.getAttribute('aria-controls'); panel.hidden = !active; panel.classList.toggle('active', active); });
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', event => {
+        if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].focus(); selectTab(tabs[next]);
+      });
     });
+    document.querySelector('#buy').addEventListener('click', event => { event.currentTarget.textContent = '✓ Añadido al carrito'; });
+    document.querySelector('#save').addEventListener('click', event => { event.currentTarget.textContent = event.currentTarget.textContent === 'Guardado ✓' ? 'Guardar' : 'Guardado ✓'; });
   </script>
 </body>
 </html>
