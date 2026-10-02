@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f4ee">
+  <title>Iniciar sesión | Portal Cliente</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+    :root {
+      color-scheme: light;
+      --ink: #202a29;
+      --muted: #687472;
+      --green: #176a52;
+      --green-dark: #10513f;
+      --line: #d9dfd8;
+      --paper: #fffefa;
+      --canvas: #f3f4ee;
+      --coral: #dc795e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(320px, 0.92fr) minmax(440px, 1.08fr);
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .visual {
+      position: relative;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 42px 48px 36px;
+      background: #dce8dd;
+    }
+
+    .visual::before,
+    .visual::after {
+      position: absolute;
+      content: '';
+      pointer-events: none;
+    }
+
+    .visual::before {
+      inset: 0;
+      background: linear-gradient(155deg, rgba(243, 244, 238, .1), rgba(31, 90, 68, .12));
+    }
+
+    .visual::after {
+      width: 430px;
+      height: 430px;
+      right: -175px;
+      bottom: -190px;
+      border: 1px solid rgba(23, 106, 82, .2);
+      border-radius: 50%;
+      box-shadow: 0 0 0 42px rgba(23, 106, 82, .045), 0 0 0 84px rgba(23, 106, 82, .035);
+    }
+
+    .brand, .visual-copy, .visual-footer { position: relative; z-index: 1; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      color: var(--ink);
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--green);
+      color: white;
+    }
+
+    .brand-mark svg { width: 22px; height: 22px; }
+
+    .visual-copy { max-width: 510px; margin: 0 auto; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 19px;
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 22px;
+      height: 2px;
+      background: var(--coral);
+      content: '';
+    }
+
+    h1 {
+      max-width: 480px;
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(38px, 4vw, 58px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .visual-copy p {
+      max-width: 395px;
+      margin: 20px 0 0;
+      color: #4f6259;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .visual-footer { color: #52645b; font-size: 12px; }
+
+    .form-side {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 48px 32px;
+      background:
+        radial-gradient(ellipse at 80% 5%, rgba(220, 121, 94, .08), transparent 31%),
+        var(--paper);
+    }
+
+    .login { width: min(100%, 410px); animation: arrive .55s ease-out both; }
+
+    .mobile-brand { display: none; }
+
+    .form-heading { margin-bottom: 34px; }
+
+    .form-heading h2 {
+      margin: 0 0 9px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .form-heading p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .field { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      height: 49px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      outline: none;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      transition: border-color .18s, box-shadow .18s;
+    }
+
+    input::placeholder { color: #98a19c; }
+
+    input:focus-visible {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(23, 106, 82, .13);
+    }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 2px 0 24px;
+      font-size: 13px;
+    }
+
+    .remember { display: inline-flex; align-items: center; gap: 8px; color: #4f5c58; }
+
+    .remember input { width: 15px; height: 15px; margin: 0; accent-color: var(--green); }
+
+    a { color: var(--green-dark); font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--green); }
+
+    .submit {
+      display: flex;
+      width: 100%;
+      height: 49px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 5px;
+      background: var(--green);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background .18s, transform .18s;
+    }
+
+    .submit:hover { background: var(--green-dark); }
+    .submit:active { transform: translateY(1px); }
+    .submit:focus-visible, a:focus-visible { outline: 3px solid rgba(23, 106, 82, .35); outline-offset: 3px; }
+    .submit svg { width: 17px; height: 17px; }
+
+    .notice {
+      min-height: 20px;
+      margin: 14px 0 0;
+      color: #a34e3b;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .divider { height: 1px; margin: 28px 0 23px; background: #e8ebe5; }
+
+    .help { margin: 0; color: var(--muted); font-size: 13px; text-align: center; }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 36px;
+      color: #78837e;
+      font-size: 11px;
+    }
+
+    .security-note svg { width: 15px; height: 15px; color: var(--green); }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(9px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 760px) {
+      body { display: block; }
+      .visual { display: none; }
+      .form-side { min-height: 100svh; padding: 34px 24px; }
+      .login { max-width: 420px; }
+      .mobile-brand { display: inline-flex; margin-bottom: 43px; }
+      .form-heading { margin-bottom: 29px; }
+      .security-note { margin-top: 29px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="visual" aria-label="Portal Cliente">
+    <a class="brand" href="#inicio" aria-label="Portal Cliente, inicio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 18.5V7.8c0-.5.3-.9.8-1.1l5.6-2.2c.4-.2.8-.2 1.2 0l5.6 2.2c.5.2.8.6.8 1.1v10.7M8 18.5v-5h8v5M9 9.2h.01M15 9.2h.01M12 9.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Portal Cliente
+    </a>
+
+    <div class="visual-copy">
+      <div class="eyebrow">Tu espacio de trabajo</div>
+      <h1>Todo tu negocio, en un solo lugar.</h1>
+      <p>Accede a tus pedidos, facturas y datos de cuenta desde un portal sencillo y seguro.</p>
+    </div>
+
+    <div class="visual-footer">© 2026 Portal Cliente</div>
+  </aside>
+
+  <main class="form-side" id="inicio">
+    <section class="login" aria-labelledby="login-title">
+      <a class="brand mobile-brand" href="#inicio" aria-label="Portal Cliente, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 18.5V7.8c0-.5.3-.9.8-1.1l5.6-2.2c.4-.2.8-.2 1.2 0l5.6 2.2c.5.2.8.6.8 1.1v10.7M8 18.5v-5h8v5M9 9.2h.01M15 9.2h.01M12 9.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Portal Cliente
+      </a>
+
+      <header class="form-heading">
+        <h2 id="login-title">Iniciar sesión</h2>
+        <p>Ingresa tus datos para acceder a tu cuenta.</p>
+      </header>
+
+      <form id="login-form">
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input id="email" name="email" type="email" autocomplete="username" placeholder="nombre@empresa.com" required>
+        </div>
+
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Ingresa tu contraseña" required>
+        </div>
+
+        <div class="form-options">
+          <label class="remember" for="remember">
+            <input id="remember" name="remember" type="checkbox">
+            Recordarme
+          </label>
+          <a href="mailto:soporte@empresa.com?subject=Recuperar%20contrase%C3%B1a">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button class="submit" type="submit">
+          Iniciar sesión
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="notice" id="form-notice" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="divider" aria-hidden="true"></div>
+      <p class="help">¿Necesitas ayuda? <a href="mailto:soporte@empresa.com">Contacta con soporte</a></p>
+      <div class="security-note">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 3 5 6v5c0 4.6 2.9 8.1 7 10 4.1-1.9 7-5.4 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Tus datos se transmiten de forma segura
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const loginForm = document.querySelector('#login-form');
+    const formNotice = document.querySelector('#form-notice');
+
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      formNotice.textContent = 'El formulario está listo, pero falta conectarlo al servicio de autenticación.';
+    });
+  </script>
+</body>
+</html>
