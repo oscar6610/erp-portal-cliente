@@ -1,0 +1,31 @@
+# Configuración local y secretos — NO se sube al repositorio
+.env
+
+# Entorno virtual de Python
+.venv/
+venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Base de datos local
+*.sqlite3
+db.sqlite3
+
+# Archivos estáticos recolectados
+staticfiles/
+
+# Salidas de herramientas de análisis
+.scannerwork/
+.sonar/
+coverage.xml
+htmlcov/
+
+# Editores y sistema operativo
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
