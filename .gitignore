@@ -1,28 +1,28 @@
---- Secretos y variables de entorno ---
+# --- Secretos y variables de entorno ---
 .env
 
---- Entornos virtuales ---
+# --- Entornos virtuales ---
 .venv/
 venv/
 env/
 
---- Python ---
-pycache/
+# --- Python ---
+__pycache__/
 *.py[cod]
 
---- Bases de datos locales ---
+# --- Bases de datos locales ---
 *.sqlite3
 
---- Django ---
+# --- Django ---
 staticfiles/
 
---- Herramientas de analisis ---
+# --- Herramientas de analisis (SonarQube / cobertura) ---
 .scannerwork/
 .sonar/
 coverage.xml
 htmlcov/
 
---- Editores y sistema operativo ---
+# --- Editores y sistema operativo ---
 .vscode/
 .idea/
 Thumbs.db
