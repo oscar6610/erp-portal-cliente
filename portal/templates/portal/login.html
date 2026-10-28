@@ -1,0 +1,21 @@
+{% extends "portal/base.html" %}
+{% block title %}Ingresar — Portal del Cliente{% endblock %}
+
+{% block content %}
+<h1>Ingresar a mi cuenta</h1>
+
+<form method="post" class="tarjeta">
+  {% csrf_token %}
+  {% if error %}<div class="aviso">{{ error }}</div>{% endif %}
+
+  <label for="rut">RUT</label>
+  <input type="text" id="rut" name="rut" placeholder="12345678-9" required>
+
+  <label for="password">Contraseña</label>
+  <input type="password" id="password" name="password" required>
+
+  <button class="primary" type="submit">Ingresar</button>
+
+  <p class="pie">¿No tienes cuenta? <a href="{% url 'portal:registro' %}">Regístrate</a></p>
+</form>
+{% endblock %}

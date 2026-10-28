@@ -1,0 +1,36 @@
+{% extends "portal/base.html" %}
+{% block title %}Mi carrito — Portal del Cliente{% endblock %}
+
+{% block content %}
+<h1>Mi carrito</h1>
+
+{% if not items %}
+  <p class="resultados">El carrito está vacío.</p>
+{% else %}
+  <div style="border:1px solid var(--line);border-radius:14px;background:var(--paper);overflow:hidden;">
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <tr style="text-align:left;color:var(--muted);">
+        <th style="padding:14px 18px;">Producto</th>
+        <th style="padding:14px 18px;">Cantidad</th>
+        <th style="padding:14px 18px;">Precio</th>
+        <th style="padding:14px 18px;">Subtotal</th>
+      </tr>
+      {% for it in items %}
+        <tr style="border-top:1px solid var(--line);">
+          <td style="padding:14px 18px;">{{ it.nombre }}</td>
+          <td style="padding:14px 18px;">{{ it.cantidad }}</td>
+          <td style="padding:14px 18px;">${{ it.precio }}</td>
+          <td style="padding:14px 18px;">${{ it.subtotal }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <p style="margin-top:20px;font-size:20px;font-weight:800;">Total: ${{ total }}</p>
+
+  <form method="post" action="{% url 'portal:confirmar' %}">
+    {% csrf_token %}
+    <button class="primary" type="submit">Confirmar pedido</button>
+  </form>
+{% endif %}
+{% endblock %}

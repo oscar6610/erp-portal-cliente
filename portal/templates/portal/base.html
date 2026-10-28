@@ -1,0 +1,85 @@
+{% load static %}<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Portal del Cliente{% endblock %}</title>
+  <style>
+    :root { --ink:#17211f; --muted:#697572; --paper:#fffdfa; --canvas:#f2eee6;
+            --line:#dedbd3; --accent:#df5d3d; --dark:#153f36; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--canvas); color:var(--ink);
+           font-family:"Segoe UI", system-ui, sans-serif; }
+    a { color:inherit; }
+    .shell { width:min(1080px, calc(100% - 40px)); margin:0 auto; }
+    header.top { display:flex; align-items:center; justify-content:space-between;
+                 padding:22px 0; border-bottom:1px solid var(--line); }
+    .brand { font-weight:800; font-size:18px; letter-spacing:-.3px; text-decoration:none; }
+    .brand i { display:inline-block; width:10px; height:10px; margin-right:8px;
+               border-radius:50%; background:var(--accent); }
+    nav a, nav button { margin-left:16px; font-size:14px; font-weight:600;
+                        color:var(--muted); text-decoration:none; background:none;
+                        border:0; cursor:pointer; font-family:inherit; }
+    nav a:hover, nav button:hover { color:var(--ink); }
+    main { padding:32px 0 60px; }
+    h1 { font-size:26px; letter-spacing:-.5px; margin:0 0 18px; }
+    .filtros { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+    input[type=text], select, input[type=email], input[type=password] {
+      padding:11px 13px; border:1px solid var(--line); border-radius:8px;
+      background:var(--paper); font:inherit; font-size:14px; }
+    input[type=text] { flex:1; min-width:220px; }
+    button.primary { padding:11px 20px; border:1px solid var(--dark); border-radius:8px;
+                     background:var(--dark); color:#fff; font-weight:700; cursor:pointer; }
+    button.primary:hover { background:#0e302a; }
+    .aviso { padding:12px 16px; border-radius:8px; background:#fbe6e0;
+             border:1px solid #f0c4b8; color:#8c3620; font-size:14px; margin-bottom:18px; }
+    .resultados { color:var(--muted); font-size:14px; margin:0 0 18px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:18px; }
+    .card { display:block; padding:18px; border:1px solid var(--line); border-radius:14px;
+            background:var(--paper); text-decoration:none; }
+    .card:hover { border-color:#b9c2bc; }
+    .card .cat { color:var(--accent); font-size:11px; font-weight:700;
+                 letter-spacing:1.2px; text-transform:uppercase; }
+    .card h2 { font-size:16px; margin:8px 0 4px; }
+    .card .marca { color:var(--muted); font-size:13px; }
+    .card .precio { margin-top:14px; font-weight:800; font-size:18px; }
+    .card .stock { color:var(--muted); font-size:12px; }
+    .ficha { display:grid; grid-template-columns:1.2fr 1fr; gap:32px;
+             padding:28px; border:1px solid var(--line); border-radius:16px; background:var(--paper); }
+    .ficha .precio { font-size:30px; font-weight:800; margin:10px 0 20px; }
+    .ficha dl { display:grid; grid-template-columns:auto 1fr; gap:8px 18px; font-size:14px; }
+    .ficha dt { color:var(--muted); }
+    .ficha dd { margin:0; }
+    .volver { display:inline-block; margin-bottom:18px; color:var(--muted);
+              font-size:14px; text-decoration:none; }
+    form.tarjeta { max-width:430px; padding:26px; border:1px solid var(--line);
+                   border-radius:14px; background:var(--paper); }
+    form.tarjeta label { display:block; margin:14px 0 6px; font-size:13px;
+                         font-weight:600; color:var(--muted); }
+    form.tarjeta input { width:100%; }
+    form.tarjeta button { width:100%; margin-top:22px; }
+    .pie { margin-top:18px; font-size:13px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="top shell">
+    <a class="brand" href="{% url 'portal:catalogo' %}"><i></i>Seguridad LTDA</a>
+    <nav>
+      <a href="{% url 'portal:catalogo' %}">Catálogo</a>
+      {% if request.session.cliente_id %}
+        <span style="font-size:14px;color:var(--muted);margin-left:16px;">{{ request.session.cliente_nombre }}</span>
+        <form method="post" action="{% url 'portal:logout' %}" style="display:inline">
+          {% csrf_token %}<button type="submit">Salir</button>
+        </form>
+      {% else %}
+        <a href="{% url 'portal:login' %}">Ingresar</a>
+        <a href="{% url 'portal:registro' %}">Registrarse</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="shell">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
