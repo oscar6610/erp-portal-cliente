@@ -87,7 +87,7 @@ def agregar(request, pk):
     carrito[str(producto.id)] = cantidad
     request.session["carrito"] = carrito
 
-    return redirect("portal:ficha", pk=producto.id)
+    return redirect("portal:carrito")
 
 
 def carrito(request):

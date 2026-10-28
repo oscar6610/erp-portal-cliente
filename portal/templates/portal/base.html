@@ -66,6 +66,7 @@
     <a class="brand" href="{% url 'portal:catalogo' %}"><i></i>Seguridad LTDA</a>
     <nav>
       <a href="{% url 'portal:catalogo' %}">Catálogo</a>
+      <a href="{% url 'portal:carrito' %}">Carrito{% if request.session.carrito %} ({{ request.session.carrito|length }}){% endif %}</a>
       {% if request.session.cliente_id %}
         <span style="font-size:14px;color:var(--muted);margin-left:16px;">{{ request.session.cliente_nombre }}</span>
         <form method="post" action="{% url 'portal:logout' %}" style="display:inline">
