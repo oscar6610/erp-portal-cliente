@@ -1,17 +1,29 @@
-# Entorno virtual
-.venv/
-venv/
-
-# Python
-__pycache__/
-*.py[cod]
-
-# Django
-db.sqlite3
-staticfiles/
-
-# Variables de entorno y secretos
+--- Secretos y variables de entorno ---
 .env
 
-# Archivos de VS Code
+--- Entornos virtuales ---
+.venv/
+venv/
+env/
+
+--- Python ---
+pycache/
+*.py[cod]
+
+--- Bases de datos locales ---
+*.sqlite3
+
+--- Django ---
+staticfiles/
+
+--- Herramientas de analisis ---
+.scannerwork/
+.sonar/
+coverage.xml
+htmlcov/
+
+--- Editores y sistema operativo ---
 .vscode/
+.idea/
+Thumbs.db
+desktop.ini
