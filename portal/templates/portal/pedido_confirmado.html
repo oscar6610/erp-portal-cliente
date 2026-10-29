@@ -1,0 +1,21 @@
+{% extends "portal/base.html" %}
+{% block title %}Pedido confirmado — Portal del Cliente{% endblock %}
+
+{% block content %}
+<h1>Pedido confirmado</h1>
+
+<div style="max-width:520px;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--paper);">
+  <p style="font-size:15px;line-height:1.7;margin-top:0;">
+    Gracias, <strong>{{ pedido.cliente.nombre }}</strong>.
+    Tu pedido <strong>N° {{ pedido.id }}</strong> fue registrado y será enviado
+    a la dirección <strong>{{ pedido.cliente.direccion }}</strong>.
+  </p>
+  <dl style="display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px;">
+    <dt style="color:var(--muted);">Fecha</dt><dd style="margin:0;">{{ pedido.fecha }}</dd>
+    <dt style="color:var(--muted);">Estado</dt><dd style="margin:0;">{{ pedido.get_estado_display }}</dd>
+    <dt style="color:var(--muted);">Total</dt><dd style="margin:0;font-weight:800;">${{ pedido.total }}</dd>
+  </dl>
+</div>
+
+<p style="margin-top:22px;"><a class="volver" href="{% url 'portal:catalogo' %}">← Seguir comprando</a></p>
+{% endblock %}

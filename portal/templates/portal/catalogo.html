@@ -1,0 +1,43 @@
+{% extends "portal/base.html" %}
+{% block title %}Catálogo — Portal del Cliente{% endblock %}
+
+{% block content %}
+<h1>Catálogo de productos</h1>
+
+<form method="get" class="filtros">
+  <input type="text" name="q" value="{{ q }}" placeholder="Buscar por nombre o código de producto">
+  <select name="categoria">
+    <option value="">Todas las categorías</option>
+    {% for c in categorias %}
+      <option value="{{ c }}" {% if c == categoria %}selected{% endif %}>{{ c }}</option>
+    {% endfor %}
+  </select>
+  <select name="marca">
+    <option value="">Todas las marcas</option>
+    {% for m in marcas %}
+      <option value="{{ m }}" {% if m == marca %}selected{% endif %}>{{ m }}</option>
+    {% endfor %}
+  </select>
+  <button class="primary" type="submit">Buscar</button>
+</form>
+
+{% if q %}
+  <p class="resultados">Resultados para: {{ q|safe }}</p>
+{% endif %}
+
+<p class="resultados">{{ total }} producto{{ total|pluralize }} encontrado{{ total|pluralize }}</p>
+
+<div class="grid">
+  {% for p in productos %}
+    <a class="card" href="{% url 'portal:ficha' p.id %}">
+      <span class="cat">{{ p.categoria }}</span>
+      <h2>{{ p.nombre }}</h2>
+      <span class="marca">{{ p.marca }} · {{ p.codigo }}</span>
+      <div class="precio">${{ p.precio }}</div>
+      <span class="stock">Stock: {{ p.stock }}</span>
+    </a>
+  {% empty %}
+    <p>No se encontraron productos con esos criterios.</p>
+  {% endfor %}
+</div>
+{% endblock %}

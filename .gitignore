@@ -1,0 +1,29 @@
+# --- Secretos y variables de entorno ---
+.env
+
+# --- Entornos virtuales ---
+.venv/
+venv/
+env/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+
+# --- Bases de datos locales ---
+*.sqlite3
+
+# --- Django ---
+staticfiles/
+
+# --- Herramientas de analisis (SonarQube / cobertura) ---
+.scannerwork/
+.sonar/
+coverage.xml
+htmlcov/
+
+# --- Editores y sistema operativo ---
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
