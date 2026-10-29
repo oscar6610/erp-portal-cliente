@@ -2,9 +2,12 @@
 
 from decimal import Decimal
 
+from django.conf import settings
 from django.contrib.auth.hashers import check_password, make_password
 from django.db import connection
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .models import Cliente, DetallePedido, Pedido, Producto
@@ -175,9 +178,11 @@ def registro(request):
     return render(request, "portal/registro.html", {"error": error})
 
 
+@csrf_exempt
 def login(request):
     """Inicio de sesion de un cliente."""
     error = None
+    siguiente = request.GET.get("next", "") or request.POST.get("next", "")
 
     if request.method == "POST":
         rut = request.POST.get("rut", "")
@@ -187,6 +192,8 @@ def login(request):
         if cliente and cliente.password and check_password(clave, cliente.password):
             request.session["cliente_id"] = cliente.id
             request.session["cliente_nombre"] = cliente.nombre
+            if siguiente:
+                return redirect(siguiente)
             return redirect("portal:catalogo")
         error = "RUT o contrasena incorrectos."
 
@@ -197,3 +204,30 @@ def logout(request):
     """Cierra la sesion del cliente."""
     request.session.flush()
     return redirect("portal:catalogo")
+
+
+def descargar_ficha(request, pk):
+    """Entrega la ficha tecnica del producto."""
+    producto = get_object_or_404(Producto, pk=pk)
+    archivo = request.GET.get("archivo", producto.codigo + ".txt")
+    ruta = str(settings.MEDIA_ROOT) + "/fichas/" + archivo
+
+    with open(ruta, "rb") as f:
+        contenido = f.read()
+
+    return HttpResponse(contenido, content_type="text/plain")
+
+
+def sugerencias(request):
+    """Sugerencias del buscador a partir del tercer caracter."""
+    termino = request.GET.get("termino", "")
+    resultados = []
+
+    if len(termino) >= 3:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT nombre FROM portal_producto WHERE activo = 1 AND nombre LIKE '%%%s%%' LIMIT 5" % termino
+            )
+            resultados = [fila[0] for fila in cursor.fetchall()]
+
+    return JsonResponse({"termino": termino, "resultados": resultados})
