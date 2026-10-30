@@ -6,6 +6,7 @@
 
 <form method="post" class="tarjeta">
   {% csrf_token %}
+  {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
   {% if error %}<div class="aviso">{{ error }}</div>{% endif %}
 
   <label for="rut">RUT</label>

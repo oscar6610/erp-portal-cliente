@@ -32,6 +32,9 @@
       <dt>Stock</dt><dd>{{ producto.stock }} unidades</dd>
       <dt>Estado</dt><dd>{% if producto.activo %}Disponible{% else %}No disponible{% endif %}</dd>
     </dl>
+    <p style="margin-top:20px;">
+      <a class="volver" href="{% url 'portal:descargar_ficha' producto.id %}">&darr; Descargar ficha t&eacute;cnica</a>
+    </p>
   </div>
 </div>
 {% endblock %}
